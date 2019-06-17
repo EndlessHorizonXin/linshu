@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.suoer.ssm.mapper.IOrderMapper">
+    
+    <resultMap id="ordersList" type="com.suoer.ssm.domain.Orders">
+        <result column="id" property="id"></result>
+        <result column="orderNum" property="orderNum"></result>
+        <result column="orderTime" property="orderTime"></result>
+        <result column="peopleCount" property="peopleCount"></result>
+        <result column="orderDesc" property="orderDesc"></result>
+        <result column="payType" property="payType"></result>
+        <result column="orderStatus" property="orderStatus"></result>
+        <association property="product" javaType="com.suoer.ssm.domain.Product">
+            <result column="pid" property="id"></result>
+            <result column="productNum" property="productNum"></result>
+            <result column="productName" property="productName"></result>
+            <result column="cityName" property="cityName"></result>
+            <result column="departureTime" property="departureTime"></result>
+            <result column="productPrice" property="productPrice"></result>
+            <result column="productDesc" property="productDesc"></result>
+            <result column="productStatus" property="productStatus"></result>
+        </association>
+    </resultMap>
+    
+    <select id="findOrdersAll" resultMap="ordersList">
+        select o.*,
+               p.productNum,
+               p.productName,
+               p.cityName,
+               p.departureTime,
+               p.productPrice,
+               p.productDesc,
+               p.productStatus
+        from product p,orders o
+        where o.productId = p.id
+    </select>
+
+    <!--分页插件查询所有-->
+
+    <resultMap id="ordersList2" type="com.suoer.ssm.domain.Orders">
+        <result column="id" property="id"></result>
+        <result column="orderNum" property="orderNum"></result>
+        <result column="orderTime" property="orderTime"></result>
+        <result column="peopleCount" property="peopleCount"></result>
+        <result column="orderDesc" property="orderDesc"></result>
+        <result column="payType" property="payType"></result>
+        <result column="orderStatus" property="orderStatus"></result>
+        <association property="product" javaType="com.suoer.ssm.domain.Product">
+            <result column="pid" property="id"></result>
+            <result column="productNum" property="productNum"></result>
+            <result column="productName" property="productName"></result>
+            <result column="cityName" property="cityName"></result>
+            <result column="departureTime" property="departureTime"></result>
+            <result column="productPrice" property="productPrice"></result>
+            <result column="productDesc" property="productDesc"></result>
+            <result column="productStatus" property="productStatus"></result>
+        </association>
+    </resultMap>
+
+    <select id="findAllByPage" resultMap="ordersList2">
+        select o.*,
+               p.productNum,
+               p.productName,
+               p.cityName,
+               p.departureTime,
+               p.productPrice,
+               p.productDesc,
+               p.productStatus
+        from product p,orders o
+        where o.productId = p.id
+    </select>
+</mapper>
